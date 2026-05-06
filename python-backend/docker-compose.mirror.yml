@@ -1,0 +1,32 @@
+# 与 docker-compose.yml 叠加：从镜像站拉取官方镜像，减轻直连 docker.io 导致的鉴权 EOF；
+# 并为 backend / frontend 传入镜像站上的 python / node / nginx；
+# backend 额外传入 NPM_CONFIG_REGISTRY（mermaid-cli 的 npm 安装，减轻 registry.npmjs.org 超时）。
+#
+# 用法（在 python-backend 目录）：
+#   docker compose -f docker-compose.yml -f docker-compose.mirror.yml pull
+#   docker compose -f docker-compose.yml -f docker-compose.mirror.yml up -d --build
+#
+# 若 DaoCloud 不可用，可改下面前缀或为本机 Docker Engine 配置 registry-mirrors。
+
+services:
+  mysql:
+    image: docker.m.daocloud.io/library/mysql:8.0
+  redis:
+    image: docker.m.daocloud.io/library/redis:7-alpine
+  qdrant:
+    image: docker.m.daocloud.io/qdrant/qdrant:latest
+
+  backend:
+    build:
+      args:
+        PYTHON_IMAGE: docker.m.daocloud.io/library/python:3.12-slim
+        # 与 mermaid-cli 安装阶段一致，避免在 python 层从 docker.io 拉 node
+        NODE_IMAGE: docker.m.daocloud.io/library/node:22-bookworm-slim
+        # 降低 npm 官方源在国内超时概率（可按环境改为其他 registry）
+        NPM_CONFIG_REGISTRY: https://registry.npmmirror.com
+
+  frontend:
+    build:
+      args:
+        NODE_IMAGE: docker.m.daocloud.io/library/node:22-alpine
+        NGINX_IMAGE: docker.m.daocloud.io/library/nginx:alpine

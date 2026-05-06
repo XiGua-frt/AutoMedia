@@ -1,0 +1,132 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+
+# Java / Maven（仓库根目录仍保留 pom.xml 时）
+target/
+!.mvn/wrapper/maven-wrapper.jar
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Eclipse / NetBeans（历史遗留）
+.classpath
+.project
+.settings/
+bin/
+nbproject/
+build/
+nbbuild/
+dist/
+nbdist/
+
+# Node（根目录脚本或 workspace 级依赖时使用）
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Frontend（Vite / Vue）
+frontend/dist/
+frontend/.nuxt/
+frontend/.output/
+frontend/.cache/
+frontend/.vite/
+*.tsbuildinfo
+
+# Python（全仓库生效，不限于 python-backend/）
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+venv/
+ENV/
+env/
+.venv/
+
+# Python 测试 / 覆盖率 / 静态检查缓存
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+*.cover
+.hypothesis/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.ruff_cache/
+.pytype/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# 日志
+*.log
+logs/
+
+# 敏感配置与本地环境（保留 *example* 模板）
+.env
+.env.local
+.env.*.local
+!.env.example
+!**/.env.example
+src/main/resources/application-local.yml
+frontend/src/config/env.ts
+
+# 临时与备份文件
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+*.bak
+
+# Docker（本地覆盖 compose 常见不入库）
+docker-compose.override.yml
+**/docker-compose.override.yml
+
+# 本地向量库 / 缓存数据目录（若挂载到项目内）
+qdrant_storage/
+.rag_cache/
+
+# 简历生成等本地导出（保留目录内 .py 等脚本可入库）
+resume_output/**/*.pdf
+resume_output/**/*.docx
+resume_output/**/*.png
+
+# Cursor：本地计划与缓存（团队规则若需入库可用 ! 取反）
+.cursor/plans/
+
+# Claude Code 本地状态
+.claude/**
