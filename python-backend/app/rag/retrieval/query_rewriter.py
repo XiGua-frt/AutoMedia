@@ -1,4 +1,4 @@
-"""检索 Query 改写模块。"""
+"""检索 Query 改写模块。""" 
 
 from __future__ import annotations
 
