@@ -1,15 +1,11 @@
 # AI 爆款文章创作器
 
-
-
 基于 **Python（FastAPI）多智能体编排** 与 **Vue 3** 的图文创作平台：从选题到标题、大纲、正文、配图与图文合成，全流程可流式反馈、关键节点可人工介入。
 
 Python
 FastAPI
 Vue
 License
-
-
 
 更完整的产品说明、接口与协议见 **[docs/产品技术文档.md](docs/产品技术文档.md)**。
 
@@ -46,7 +42,7 @@ License
 
 - **客户端**：浏览器访问 Vue 3 前端（生产环境可由 Nginx 托管静态资源并反向代理 API）。  
 - **接入与接口层**：`python-backend` 内 **FastAPI**，统一前缀 `/api`，Session 鉴权（Redis）、CORS、全局异常处理。  
-- **业务与智能体层**：`app/services/*` 与 `app/agent/orchestrator.py` 编排多智能体异步任务；`app/managers/sse_manager.py` 管理 SSE。  
+- **业务与智能体层**：`app/services/`* 与 `app/agent/orchestrator.py` 编排多智能体异步任务；`app/managers/sse_manager.py` 管理 SSE。  
 - **数据与外部能力**：MySQL 持久化；Redis 用于 Session 等；向量检索与入库见「知识库与 RAG」；配图上传腾讯云 COS；大模型与 Embedding 走阿里云 DashScope；可选 Stripe、Gemini 生图等。
 
 详细分层图与模块说明仍以 **[docs/产品技术文档.md](docs/产品技术文档.md)** 为准。
@@ -185,7 +181,7 @@ npm run dev
 | COS    | `TENCENT_COS_SECRET_ID`、`TENCENT_COS_SECRET_KEY`、`TENCENT_COS_REGION`、`TENCENT_COS_BUCKET` |
 | 向量库    | `QDRANT_HOST`、`QDRANT_PORT`、`QDRANT_COLLECTION`                                            |
 | RAG 调参 | `RAG_CHUNK_SIZE`、`RAG_CHUNK_OVERLAP`、`RAG_TOP_K`、`RAG_MAX_CONTEXT_TOKENS` 等                |
-| 可选     | `STRIPE_`*、`NANO_BANANA_*`、`AGENT_IMAGE_*` 等                                               |
+| 可选     | `STRIPE_`*、`NANO_BANANA_`*、`AGENT_IMAGE_*` 等                                               |
 
 
 ---
@@ -216,18 +212,10 @@ ai-passage-creator/
 ## API 与 SSE
 
 - **统一响应**：`{ "code", "data", "message" }`（`code === 0` 表示成功）。  
-- **主要路由**：用户 `/api/user/`*、文章 `/api/article/*`、支付 `/api/payment/*`、统计 `/api/statistics/*`、知识库 `/api/knowledge/*`、健康检查 `/api/health/`。  
+- **主要路由**：用户 `/api/user/`*、文章 `/api/article/`*、支付 `/api/payment/*`、统计 `/api/statistics/*`、知识库 `/api/knowledge/*`、健康检查 `/api/health/`。  
 - **SSE**：`GET /api/article/{id}/sse`，事件类型含 `AGENT0_COMPLETE` / `AGENT0_SKIP`、`TITLES_GENERATED`、`AGENT2_STREAMING`、`OUTLINE_GENERATED`、`AGENT3_STREAMING`、`IMAGE_COMPLETE`、`MERGE_COMPLETE`、`ALL_COMPLETE`、`ERROR` 等。
 
 完整接口表与事件载荷见 **[docs/产品技术文档.md](docs/产品技术文档.md)** 第 8、9 章。
-
----
-
-## 其他说明
-
-- 根目录 `.env.example` 可能仍含历史 Java 相关注释；**以后端 `app/config.py` 与 `python-backend/docker-compose.yml` 为准** 配置运行环境。  
-- VIP、Stripe Webhook、COS 等能力需正确配置密钥与回调 URL 后使用。  
-- Mermaid 等依赖本机或镜像内 CLI（如 `mmdc`）时，需保证容器或宿主机路径可用。
 
 ---
 
