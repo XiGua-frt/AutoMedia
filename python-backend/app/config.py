@@ -102,6 +102,17 @@ class Settings(BaseSettings):
     rag_fetch_k: int = 20
     rag_mmr_lambda: float = 0.5
     rag_max_context_tokens: int = 3000
+    rag_query_rewrite_enable_intent: bool = True
+    rag_query_rewrite_enable_llm: bool = False
+    rag_query_rewrite_llm_model: str = "qwen-plus"
+    rag_query_rewrite_max_queries: int = 6
+    rag_query_rewrite_llm_max_queries: int = 2
+    rag_query_rewrite_max_query_len: int = 80
+    rag_rerank_enable: bool = False
+    rag_rerank_model_name: str = "BAAI/bge-reranker-v2-m3"
+    rag_rerank_top_n: int = 5
+    rag_rerank_max_length: int = 512
+    rag_rerank_batch_size: int = 16
     
     model_config = SettingsConfigDict(
         env_file=str(ENV_FILE),
